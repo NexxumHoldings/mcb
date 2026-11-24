@@ -454,15 +454,30 @@ function calc(){
  const pair=b=>st.c==='BRL'?[fmt(b,'BRL'),fmt(b/FX,'USD')]:[fmt(b/FX,'USD'),fmt(b,'BRL')];
  [[PRICE,'r1'],[vb,'r2'],[diff,'r3']].forEach(([b,id])=>{const p=pair(b);$(id).textContent=p[0];$(id+'b').textContent=p[1]});
 }
+const TR={
+'Casa branca de três pavimentos à beira do canal no Condomínio Marina Tedesco Camboriú, com montanhas ao fundo':'Three-story white house on the canal in the Marina Tedesco Camboriú community, with mountains behind',
+'A casa vista do canal, com o deck, a piscina e lanchas atracadas':'The home seen from the canal, with the deck, the pool and boats docked',
+'Deck de madeira com coqueiros e lanchas no canal':'Wooden deck with palm trees and boats on the canal',
+'Espaço gourmet com bar, banquetas e churrasqueiras':'Outdoor kitchen with bar, stools and grills',
+'Adega climatizada para 522 garrafas':'Climate-controlled wine cellar for 522 bottles',
+'Piscina e deck de frente para o canal com o skyline de Balneário Camboriú':'Pool and deck facing the canal with the Balneário Camboriú skyline',
+'Skyline de Balneário Camboriú visto do deck da casa, do outro lado do canal':'Balneário Camboriú skyline seen from the home\'s deck, across the canal',
+'Vista aérea da casa e do píer':'Aerial view of the home and the pier',
+'Balneário Camboriú 4K':'Balneário Camboriú in 4K',
+'Galeria':'Gallery','Fechar':'Close','Anterior':'Previous','Próxima':'Next','Ficha':'Fact sheet','Moeda':'Currency','Moeda / Currency':'Currency','Idioma / Language':'Language','Unidade / Unit':'Unit'};
+function trA(){const en=st.l==='en';
+ document.querySelectorAll('img[alt]').forEach(e=>{if(e.dataset.ap===undefined){if(!(e.alt in TR))return;e.dataset.ap=e.alt}e.alt=en?TR[e.dataset.ap]:e.dataset.ap});
+ document.querySelectorAll('[aria-label]').forEach(e=>{if(e.dataset.lp===undefined){const a=e.getAttribute('aria-label');if(!(a in TR))return;e.dataset.lp=a}e.setAttribute('aria-label',en?TR[e.dataset.lp]:e.dataset.lp)});}
 function set(k,v){st[k]=v;
  $('lpt').setAttribute('aria-pressed',st.l==='pt');$('len').setAttribute('aria-pressed',st.l==='en');
  $('cbrl').setAttribute('aria-pressed',st.c==='BRL');$('cusd').setAttribute('aria-pressed',st.c==='USD');
  $('um2').setAttribute('aria-pressed',st.u==='m2');$('usf').setAttribute('aria-pressed',st.u==='sf');
  document.documentElement.lang=st.l==='pt'?'pt-BR':'en';
+ trA();
  document.title=st.l==='pt'?'Casa no canal à venda · Marina Tedesco, Balneário Camboriú':'Waterfront estate for sale · Marina Tedesco, Brazil';
  try{localStorage.setItem('mcb',JSON.stringify(st))}catch(e){}
  draw();}
-$('lpt').onclick=()=>set('l','pt');$('len').onclick=()=>{set('l','en');if(st.c==='BRL'&&!usedC)set('c','USD');if(!usedU)set('u','sf')};
+$('lpt').onclick=()=>{set('l','pt');if(st.c==='USD'&&!usedC)set('c','BRL');if(!usedU)set('u','m2')};$('len').onclick=()=>{set('l','en');if(st.c==='BRL'&&!usedC)set('c','USD');if(!usedU)set('u','sf')};
 let usedC=false,usedU=false;
 $('cbrl').onclick=()=>{usedC=true;set('c','BRL')};$('cusd').onclick=()=>{usedC=true;set('c','USD')};
 $('um2').onclick=()=>{usedU=true;set('u','m2')};$('usf').onclick=()=>{usedU=true;set('u','sf')};
