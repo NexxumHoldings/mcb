@@ -110,6 +110,7 @@ button,input,select{font:inherit}
 .dets li{background:var(--bg);padding:22px 20px;font-size:15px;color:var(--mute)}
 .dets b{display:block;font-family:Lora,serif;font-size:clamp(22px,2.2vw,30px);color:var(--navy);margin-bottom:4px}
 @media(max-width:820px){.dets{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.dets[data-l],.facts[data-l]{display:none}
 html[lang=pt-BR] .dets[data-l=pt],html[lang=en] .dets[data-l=en],html[lang=pt-BR] .facts[data-l=pt],html[lang=en] .facts[data-l=en]{display:grid}
 .quote{position:relative;min-height:70vh;display:flex;align-items:center;color:#fff;overflow:hidden}
 .quote img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
